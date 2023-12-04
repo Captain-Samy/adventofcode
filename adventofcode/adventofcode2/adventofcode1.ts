@@ -33,3 +33,4 @@ const numbers: Array<string> = fileContent.map(findFirstAndLastDigit);
 const solution = sumUpArray(numbers)
 
 console.log(solution)
+console.log("test")
