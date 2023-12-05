@@ -27,7 +27,7 @@ function getMinAndMaxIndex(keyValuePairs: [KeyValuePair]) {
 return [{max: maxKeyPair},{min: minKeyPair}]
 }
 // takes a string and creates and array with key value pairs with the index and the written number
-function indexOfNumber(str: string){
+function indexesOfNumbers(str: string){
   let indexAndNumber = []
   let counter = 0
   for(let i = 0; i < writtenNumbers.length; i++){
@@ -53,4 +53,4 @@ function sumUpArray(numbers: Array<string>){
 
 //Create new list 
 console.log("filecontent[0]: " + fileContent[0])
-console.log(indexOfNumber(fileContent[0]))
+console.log(indexesOfNumbers(fileContent[0]))
