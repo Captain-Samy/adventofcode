@@ -33,7 +33,7 @@ const nameChangeValues:{} = {
 }
 // Takes an array with keyvaluepairs and returns max and min index
 function getMinAndMaxIndex(keyValuePairs: indexAndNumberPair) {
-  var maxIndex = 0
+  var maxIndex = -1
   var minIndex = 1000000
   var maxNumber = ""
   var minNumber = ""
@@ -46,7 +46,8 @@ function getMinAndMaxIndex(keyValuePairs: indexAndNumberPair) {
       console.log("maxIndex: " + maxIndex)
       maxNumber = keyValuePairs[i].value.writtenNumber
       console.log("maxNumber: " + maxNumber)
-    }else if (keyValuePairs[i].value.index < minIndex){
+    }
+    if (keyValuePairs[i].value.index < minIndex){
       minIndex = keyValuePairs[i].value.index
       console.log("minIndex: " + minIndex)
       minNumber = keyValuePairs[i].value.writtenNumber
@@ -85,4 +86,14 @@ console.log("filecontent[0]: " + fileContent[0])
 console.log(indexesOfNumbers(fileContent[0]))
 console.log(getMinAndMaxIndex(indexesOfNumbers(fileContent[0])))
 
-
+function createlistToSumUp(fileContent: Array<string>): Array<string> {
+  var listToSum = []
+  for (let i = 0; i < fileContent.length; i++){
+    var numberToPush = getMinAndMaxIndex(indexesOfNumbers(fileContent[i]))
+    listToSum.push(numberToPush)
+  }
+  return listToSum
+}
+const listToSumUp = createlistToSumUp(fileContent)
+console.log(listToSumUp)
+console.log(sumUpArray(listToSumUp))
