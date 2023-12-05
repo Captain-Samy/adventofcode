@@ -5,6 +5,17 @@ interface KeyValuePair {
   value: string;
 }
 
+interface valueWrittenNumberPair{
+  index: number;
+  writtenNumber: string;
+}
+interface indexAndNumber {
+  key: number;
+  value: valueWrittenNumberPair
+}
+
+type indexAndNumberPair = indexAndNumber[]
+
 // Get fileContent as a list
 const fileContent = fs.readFileSync("input.txt", "utf-8").split("\n");
 
@@ -21,19 +32,37 @@ const nameChangeValues:{} = {
   "nine":"9"
 }
 // Takes an array with keyvaluepairs and returns max and min index
-function getMinAndMaxIndex(keyValuePairs: [KeyValuePair]) {
-  const maxKeyPair = keyValuePairs.reduce((max, current) => (current.key > max.key ? current : max), keyValuePairs[0]);
-  const minKeyPair = keyValuePairs.reduce((min, current) => (current.key < min.key ? current : min), keyValuePairs[0]);
-return [{max: maxKeyPair},{min: minKeyPair}]
+function getMinAndMaxIndex(keyValuePairs: indexAndNumberPair) {
+  var maxIndex = 0
+  var minIndex = 1000000
+  var maxNumber = ""
+  var minNumber = ""
+  console.log("test")
+  console.log(keyValuePairs)
+
+  for (let i = 0; i < keyValuePairs.length; i++){
+    if (keyValuePairs[i].value.index > maxIndex){
+      maxIndex = keyValuePairs[i].value.index
+      console.log("maxIndex: " + maxIndex)
+      maxNumber = keyValuePairs[i].value.writtenNumber
+      console.log("maxNumber: " + maxNumber)
+    }else if (keyValuePairs[i].value.index < minIndex){
+      minIndex = keyValuePairs[i].value.index
+      console.log("minIndex: " + minIndex)
+      minNumber = keyValuePairs[i].value.writtenNumber
+      console.log("minNumber: " + minNumber)
+    }
+  }
+  let result = minNumber + maxNumber
+  return result
 }
 // takes a string and creates and array with key value pairs with the index and the written number
 function indexesOfNumbers(str: string){
-  let indexAndNumber = []
   let counter = 0
+  let indexAndNumber = []
   for(let i = 0; i < writtenNumbers.length; i++){
     var index = str.indexOf(writtenNumbers[i])
     while (index > -1 && index < str.length){
-      console.log("nameChangeValues[writtenNumbers[i]]: " + nameChangeValues[writtenNumbers[i]])
       const writtenNumber = writtenNumbers[i] in nameChangeValues ? nameChangeValues[writtenNumbers[i]] : writtenNumbers[i]
       indexAndNumber.push({key: counter, value: {index : index, writtenNumber: writtenNumber}})
       counter++
@@ -54,3 +83,6 @@ function sumUpArray(numbers: Array<string>){
 //Create new list 
 console.log("filecontent[0]: " + fileContent[0])
 console.log(indexesOfNumbers(fileContent[0]))
+console.log(getMinAndMaxIndex(indexesOfNumbers(fileContent[0])))
+
+
