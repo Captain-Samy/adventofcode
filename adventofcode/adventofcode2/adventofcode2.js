@@ -24,12 +24,15 @@ function getMinAndMaxIndex(keyValuePairs) {
 // takes a string and creates and array with key value pairs with the index and the written number
 function indexOfNumber(str) {
     var indexAndNumber = [];
+    var counter = 0;
     for (var i = 0; i < writtenNumbers.length; i++) {
         var index = str.indexOf(writtenNumbers[i]);
-        if (index > -1) {
+        while (index > -1 && index < str.length) {
             console.log("nameChangeValues[writtenNumbers[i]]: " + nameChangeValues[writtenNumbers[i]]);
-            var value = writtenNumbers[i] in nameChangeValues ? nameChangeValues[writtenNumbers[i]] : writtenNumbers[i];
-            indexAndNumber.push({ key: index, value: value });
+            var writtenNumber = writtenNumbers[i] in nameChangeValues ? nameChangeValues[writtenNumbers[i]] : writtenNumbers[i];
+            indexAndNumber.push({ key: counter, value: { index: index, writtenNumber: writtenNumber } });
+            counter++;
+            index = str.indexOf(writtenNumbers[i], index + 1);
         }
     }
     return indexAndNumber;

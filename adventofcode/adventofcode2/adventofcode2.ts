@@ -29,12 +29,15 @@ return [{max: maxKeyPair},{min: minKeyPair}]
 // takes a string and creates and array with key value pairs with the index and the written number
 function indexOfNumber(str: string){
   let indexAndNumber = []
+  let counter = 0
   for(let i = 0; i < writtenNumbers.length; i++){
-    const index = str.indexOf(writtenNumbers[i])
-    if (index > -1){
+    var index = str.indexOf(writtenNumbers[i])
+    while (index > -1 && index < str.length){
       console.log("nameChangeValues[writtenNumbers[i]]: " + nameChangeValues[writtenNumbers[i]])
-      const value = writtenNumbers[i] in nameChangeValues ? nameChangeValues[writtenNumbers[i]] : writtenNumbers[i]
-      indexAndNumber.push({key : index, value: value})
+      const writtenNumber = writtenNumbers[i] in nameChangeValues ? nameChangeValues[writtenNumbers[i]] : writtenNumbers[i]
+      indexAndNumber.push({key: counter, value: {index : index, writtenNumber: writtenNumber}})
+      counter++
+      index = str.indexOf(writtenNumbers[i], index+1)
     }
   }
   return indexAndNumber
